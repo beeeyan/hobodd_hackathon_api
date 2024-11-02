@@ -56,7 +56,7 @@ export const route = app
 				console.error('Database error:', error);
 				return c.json({
 					success: false,
-					error: 'Failed to find logs for the room'
+					error: 'Failed to fetch calendar data'
 				}, 500);
 			}
 		},
