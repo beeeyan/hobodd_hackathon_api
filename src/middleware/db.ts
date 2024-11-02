@@ -17,7 +17,7 @@ export const db: MiddlewareHandler<{ Bindings: Bindings }> = async (
 	c,
 	next,
 ) => {
-	const db = drizzle(c.env.DB);
+	const db = drizzle(c.env.DB, { logger: true });
 	c.set("db", db);
 	await next();
 };
