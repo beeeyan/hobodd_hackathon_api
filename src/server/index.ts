@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import type { Bindings } from "hono/types";
 import { db } from "../middleware/db.js";
+import { route as calendarRoute } from "./routes/calendar.js";
 import { route as greetingRoute } from "./routes/greeting.js";
 import { route as helloRoute } from "./routes/hello.js";
 import { route as logRoute } from "./routes/log.js";
@@ -25,7 +26,8 @@ export function createApp({ basePath }: Input) {
 		.route("/greeting", greetingRoute)
 		.route("/user", userRoute)
 		.route("/room", roomRoute)
-		.route("/log", logRoute);
+		.route("/log", logRoute)
+		.route("/calendar", calendarRoute);
 
 	return { app, route };
 }
