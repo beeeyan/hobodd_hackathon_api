@@ -64,7 +64,7 @@ export const route = app
 				if (response.length === 0) {
 					c.status(404);
 					return c.json({
-						status: "error",
+						status: false,
 						code: "NotFoundError",
 						message: "No room found for the submitted roomId."
 					});
@@ -77,7 +77,6 @@ export const route = app
 				});
 
 			} catch (error) {
-				// エラーハンドリング
 				console.error('Database error:', error);
 				return c.json({
 					success: false,
@@ -119,7 +118,6 @@ export const route = app
 				return c.json(latest_user_logs_of_the_room);
 
 			} catch (error) {
-				// エラーハンドリング
 				console.error('Database error:', error);
 				return c.json({
 					success: false,
