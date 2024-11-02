@@ -78,3 +78,38 @@ export const route = app
 			}
 		},
 	)
+	.delete(
+		"/",
+		zValidator(
+			"json",
+			z.object({
+				room_id: z.string(),
+				date: z.string(), // 記念日
+			}),
+		),
+		async (c) => {
+			const { room_id, date } = c.req.valid("json");
+
+			try {
+
+				const result = await c.var.db.delete(roomAnniversary)
+					.where(
+						and(
+							eq(roomAnniversary.roomId, room_id),
+							eq(roomAnniversary.date, date)
+						)
+					)
+					.returning();
+
+				return c.json(result);
+
+			} catch (error) {
+				// エラーハンドリング
+				console.error('Database error:', error);
+				return c.json({
+					success: false,
+					error: 'Failed to insert a log'
+				}, 500);
+			}
+		},
+	)
