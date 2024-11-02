@@ -1,9 +1,11 @@
 import { zValidator } from "@hono/zod-validator";
+import { desc, eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { z } from "zod";
 import { logs } from "../../../drizzle/schema";
 import type { Bindings } from "../../middleware/db";
 import { getCurrentTimestamp } from "../utils/dateTimeConverter";
+
 const app = new Hono<{ Bindings: Bindings }>();
 
 export const route = app
@@ -37,3 +39,34 @@ export const route = app
 			}
 		},
 	)
+	.get(
+		"/:user_id",
+		zValidator(
+			"param",
+			z.object({
+				user_id: z.string(),
+			}),
+		),
+		async (c) => {
+			const { user_id } = c.req.valid("param");
+
+			try {
+				const user_logs = await c.var.db
+					.select()
+					.from(logs)
+					.where(eq(logs.userId, Number(user_id)))
+					.orderBy(
+						desc(logs.createdAt)
+					);
+
+				return c.json(user_logs);
+
+			} catch (error) {
+				console.error('Database error:', error);
+				return c.json({
+					success: false,
+					error: 'Failed to find logs for the userId'
+				}, 500);
+			}
+		},
+	);
