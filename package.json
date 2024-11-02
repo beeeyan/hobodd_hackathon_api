@@ -1,8 +1,9 @@
 {
   "name": "hackathon_api",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify"
+    "dev": "wrangler dev src/app.ts",
+    "deploy": "wrangler deploy --minify",
+    "generate": "drizzle-kit generate:sqlite --schema=drizzle/schema.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.35.3",

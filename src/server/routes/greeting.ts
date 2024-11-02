@@ -1,7 +1,7 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
-import { user } from "../../../drizzle/schema";
+import { proverb } from "../../../drizzle/schema";
 import type { Bindings } from "../../middleware/db";
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -11,7 +11,7 @@ export const route = app
 		try {
 			// c.var.db
 			// const db = drizzle(c.env.DB);
-			const allUsers = await c.var.db.select().from(user).execute(); // クエリの実行
+			const allUsers = await c.var.db.select().from(proverb); // クエリの実行
 			return c.json(allUsers);
 			// return c.json({ message: "greeting" });
 		} catch (e) {

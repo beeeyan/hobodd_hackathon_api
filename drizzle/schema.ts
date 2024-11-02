@@ -1,6 +1,5 @@
-import { sqliteTable, AnySQLiteColumn, integer, text, numeric } from "drizzle-orm/sqlite-core"
-  import { sql } from "drizzle-orm"
-
+import { sql } from "drizzle-orm";
+import { integer, numeric, sqliteTable, text } from "drizzle-orm/sqlite-core";
 export const users = sqliteTable("users", {
 	id: integer().primaryKey({ autoIncrement: true }),
 	username: text(),
@@ -47,4 +46,3 @@ export const proverb = sqliteTable("proverb", {
 
 export const cfKv = sqliteTable("_cf_KV", {
 });
-

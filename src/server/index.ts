@@ -3,6 +3,7 @@ import type { Bindings } from "hono/types";
 import { db } from "../middleware/db.js";
 import { route as greetingRoute } from "./routes/greeting.js";
 import { route as helloRoute } from "./routes/hello.js";
+import { route as userRoute } from "./routes/user.js";
 
 type Input = {
 	basePath: string;
@@ -19,7 +20,8 @@ export function createApp({ basePath }: Input) {
 	// prettier-ignore
 	const route = app
 		.route("/hello", helloRoute)
-		.route("/greeting", greetingRoute);
+		.route("/greeting", greetingRoute)
+		.route("/user", userRoute);
 
 	return { app, route };
 }
