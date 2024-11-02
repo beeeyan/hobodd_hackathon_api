@@ -1,0 +1,21 @@
+{
+  "name": "hackathon_api",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy --minify"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.35.3",
+    "hono": "^4.6.8",
+    "postgres": "^3.4.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241022.0",
+    "@hono/zod-validator": "^0.4.1",
+    "@types/pg": "^8.11.10",
+    "drizzle-kit": "^0.26.2",
+    "pg": "^8.13.1",
+    "wrangler": "^3.83.0",
+    "zod": "^3.23.8"
+  }
+}
