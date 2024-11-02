@@ -23,26 +23,7 @@ export const route = app
 			const now = new Date().toLocaleString();
 
 			try {
-				// // トランザクションの開始
-				// const result = await c.var.db.transaction(async (tx) => {
-				// 	// まずroomを登録
-				// 	await tx.insert(room).values({
-				// 		roomId: roomId,
-				// 		name: roomName,
-				// 		createdAt: now,
-				// 		updatedAt: now
-				// 	});
 
-				// 	// 次にユーザーを登録
-				// 	const userResult = await tx.insert(users).values({
-				// 		roomId: roomId,
-				// 		username: name,
-				// 		createdAt: now,
-				// 		updatedAt: now
-				// 	}).returning();
-
-				// 	return userResult;
-				// });
 
 
 				const result = await c.var.db.insert(room).values({ roomId: roomId, name: roomName, createdAt: now, updatedAt: now }).returning();
