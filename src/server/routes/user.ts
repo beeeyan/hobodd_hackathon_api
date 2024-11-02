@@ -24,8 +24,6 @@ export const route = app
 
 			try {
 
-
-
 				const result = await c.var.db.insert(room).values({ roomId: roomId, name: roomName, createdAt: now, updatedAt: now }).returning();
 				const result2 = await c.var.db.insert(users).values({ roomId: roomId, username: name, createdAt: now, updatedAt: now }).returning();
 

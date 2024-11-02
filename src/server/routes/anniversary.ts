@@ -89,7 +89,6 @@ export const route = app
 		),
 		async (c) => {
 			const { room_id, date } = c.req.valid("json");
-			const now = getCurrentTimestamp();
 
 			try {
 
