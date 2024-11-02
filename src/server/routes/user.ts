@@ -48,8 +48,7 @@ export const route = app
 				const result2 = await c.var.db.insert(users).values({ roomId: roomId, username: name, createdAt: now, updatedAt: now }).returning();
 
 				return c.json({
-					"status": "success",
-					"message": "Resource created successfully."
+					id: result2[0].id
 				});
 
 			} catch (error) {
