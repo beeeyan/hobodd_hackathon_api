@@ -13,7 +13,7 @@ function generateId(length = 21): string {
   return result;
 }
 
-// または、ULIDライクな形式を生成する関数
+// ULIDライクな形式を生成する関数
 export function generateULIDLike(): string {
   const timestamp = Date.now().toString(36);
   const randomPart = generateId(12);
