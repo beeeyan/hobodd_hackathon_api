@@ -11,7 +11,7 @@ export const users = sqliteTable("users", {
 
 export const logs = sqliteTable("logs", {
 	id: integer().primaryKey({ autoIncrement: true }),
-	clickedAt: numeric("clicked_at"),
+	clickedAt: text("clicked_at"),
 	userId: integer("user_id"),
 	sticker: text(),
 	body: text().default("sql`(null)`"),

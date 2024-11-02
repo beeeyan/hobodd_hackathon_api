@@ -9,7 +9,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE "logs" (
   "id" integer PRIMARY KEY AUTOINCREMENT,
-  "clicked_at" datetime,
+  "clicked_at" text,
   "user_id" integer,
   "sticker" varchar,
   "body" text DEFAULT null,
