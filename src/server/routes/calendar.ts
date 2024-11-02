@@ -83,7 +83,7 @@ export const route = app
 							.from(proverb)
 							.where(
 								and(
-									gt(proverb.date, last_clicked_date),
+									gt(proverb.date, last_clicked_date ?? ''),
 									lte(proverb.date, today)
 								)
 							)
