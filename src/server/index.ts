@@ -4,6 +4,7 @@ import { db } from "../middleware/db.js";
 import { route as greetingRoute } from "./routes/greeting.js";
 import { route as helloRoute } from "./routes/hello.js";
 import { route as logRoute } from "./routes/log.js";
+import { route as roomRoute } from "./routes/room.js";
 import { route as userRoute } from "./routes/user.js";
 
 type Input = {
@@ -23,6 +24,7 @@ export function createApp({ basePath }: Input) {
 		.route("/hello", helloRoute)
 		.route("/greeting", greetingRoute)
 		.route("/user", userRoute)
+		.route("/room", roomRoute)
 		.route("/log", logRoute);
 
 	return { app, route };
