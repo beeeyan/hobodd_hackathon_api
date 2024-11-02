@@ -1,8 +1,8 @@
 import { zValidator } from "@hono/zod-validator";
-import { desc, eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { z } from "zod";
-import { logs, roomAnniversary } from "../../../drizzle/schema";
+import { roomAnniversary } from "../../../drizzle/schema";
 import type { Bindings } from "../../middleware/db";
 import { getCurrentTimestamp } from "../utils/dateTimeConverter";
 
@@ -40,34 +40,76 @@ export const route = app
 			}
 		},
 	)
-	.get(
-		"/:user_id",
+	.put(
+		"/",
 		zValidator(
-			"param",
+			"json",
 			z.object({
-				user_id: z.string(),
+				room_id: z.string(),
+				date: z.string(), // 記念日
+				name: z.string(), // 記念日名
+				message: z.string().optional()
 			}),
 		),
 		async (c) => {
-			const { user_id } = c.req.valid("param");
+			const { room_id, date, name, message } = c.req.valid("json");
+			const now = getCurrentTimestamp();
 
 			try {
-				const user_logs = await c.var.db
-					.select()
-					.from(logs)
-					.where(eq(logs.userId, Number(user_id)))
-					.orderBy(
-						desc(logs.createdAt)
-					);
 
-				return c.json(user_logs);
+				const result = await c.var.db.update(roomAnniversary).set({ name: name, message: message, createdAt: now, updatedAt: now })
+					.where(
+						and(
+							eq(roomAnniversary.roomId, room_id),
+							eq(roomAnniversary.date, date)
+						)
+					)
+					.returning();
+
+				return c.json(result);
 
 			} catch (error) {
+				// エラーハンドリング
 				console.error('Database error:', error);
 				return c.json({
 					success: false,
-					error: 'Failed to find logs for the userId'
+					error: 'Failed to insert a log'
 				}, 500);
 			}
 		},
-	);
+	)
+	.delete(
+		"/",
+		zValidator(
+			"json",
+			z.object({
+				room_id: z.string(),
+				date: z.string(), // 記念日
+			}),
+		),
+		async (c) => {
+			const { room_id, date } = c.req.valid("json");
+
+			try {
+
+				const result = await c.var.db.delete(roomAnniversary)
+					.where(
+						and(
+							eq(roomAnniversary.roomId, room_id),
+							eq(roomAnniversary.date, date)
+						)
+					)
+					.returning();
+
+				return c.json(result);
+
+			} catch (error) {
+				// エラーハンドリング
+				console.error('Database error:', error);
+				return c.json({
+					success: false,
+					error: 'Failed to insert a log'
+				}, 500);
+			}
+		},
+	)
