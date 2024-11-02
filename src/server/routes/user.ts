@@ -72,6 +72,7 @@ export const route = app
 
 				return c.json({
 					user_id: result[0].id,
+					room_name: response[0].name
 				});
 
 			} catch (error) {
