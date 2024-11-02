@@ -49,8 +49,6 @@ export const route = app
 				const result2 = await c.var.db.insert(users).values({ roomId: roomId, username: name, createdAt: now, updatedAt: now }).returning();
 
 				return c.json({
-					"status": "success",
-					"message": "Resource created successfully.",
 					"user_id": result2[0].id,
 					"room_id": result2[0].roomId
 				});
@@ -83,18 +81,17 @@ export const route = app
 				const response = await c.var.db.select().from(room).where(eq(room.roomId, roomId));
 				console.log({ response })
 				if (response.length === 0) {
+					c.status(404);
 					return c.json({
 						status: "error",
 						code: "NotFoundError",
-						message: "No room found for the submitted room."
+						message: "No room found for the submitted roomId."
 					});
 				}
 
 				const result = await c.var.db.insert(users).values({ roomId: roomId, username: name, createdAt: now, updatedAt: now }).returning();
 
 				return c.json({
-					status: "success",
-					message: "Resource created successfully.",
 					user_id: result[0].id,
 				});
 
