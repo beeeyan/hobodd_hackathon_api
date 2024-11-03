@@ -26,7 +26,7 @@ Linter&formatter： [biome](https://biomejs.dev/ja/) ・・・今回はVSCodeの
 
 ## アピールポイント
 
-FirebaseやSupabaseなどの、バックエンド開発を必要としないテクノロジーをあえて使用せず、
+Firebaseなどの、バックエンド開発をあまり必要としないテクノロジーをあえて使用せず、
 Cloudflare Workers と、リレーショナルデータベースである Cloudflare D1 を使ってAPIを作りました。（若手のエンジニアからは出なさそうなホッとする男気）
 
 Cloudflare Workersは無料で使えながらパフォーマンスが非常によく、Cloudflare D1はユーザーのロケーションに近いところにDBが作られるため、
