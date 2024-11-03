@@ -1,5 +1,6 @@
 name = "hackathon_api"
 main = "src/index.ts"
+compatibility_flags = [ "nodejs_compat" ]
 compatibility_date = "2024-11-02"
 
 # compatibility_flags = [ "nodejs_compat" ]
