@@ -123,7 +123,7 @@ export const route = app
 				console.error('Database error:', error);
 				return c.json({
 					success: false,
-					error: 'Failed to find logs for the room'
+					error: 'Failed to find the latest user logs of the room'
 				}, 500);
 			}
 		},

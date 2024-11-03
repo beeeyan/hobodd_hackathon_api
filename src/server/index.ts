@@ -3,8 +3,6 @@ import type { Bindings } from "hono/types";
 import { db } from "../middleware/db.js";
 import { route as anniversaryRoute } from "./routes/anniversary.js";
 import { route as calendarRoute } from "./routes/calendar.js";
-import { route as greetingRoute } from "./routes/greeting.js";
-import { route as helloRoute } from "./routes/hello.js";
 import { route as logRoute } from "./routes/log.js";
 import { route as userRoute } from "./routes/user.js";
 
@@ -22,8 +20,6 @@ export function createApp({ basePath }: Input) {
 
 	// prettier-ignore
 	const route = app
-		.route("/hello", helloRoute)
-		.route("/greeting", greetingRoute)
 		.route("/user", userRoute)
 		.route("/log", logRoute)
 		.route("/calendar", calendarRoute)
