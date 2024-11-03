@@ -1,5 +1,5 @@
 import { zValidator } from "@hono/zod-validator";
-import { asc, desc, eq } from "drizzle-orm";
+import { asc, desc, eq, sql } from "drizzle-orm";
 import { Hono } from "hono";
 import { z } from "zod";
 import { logs, room, users } from "../../../drizzle/schema";
@@ -96,11 +96,12 @@ export const route = app
 			const { room_id } = c.req.valid("param");
 
 			try {
+
 				const latest_user_logs_of_the_room = await c.var.db
 					.select({
 						userId: users.id,
 						username: users.username,
-						createdAt: users.createdAt,
+						createdAt: sql`CONVERT_TZ(${logs.clickedAt}, 'SYSTEM', '+00:00')`.as('clickedAt'),
 						sticker: logs.sticker,
 						clickedAt: logs.clickedAt,
 					})
