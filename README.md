@@ -24,6 +24,9 @@ Linter&formatter： [biome](https://biomejs.dev/ja/) ・・・今回はVSCodeの
 
 リクエストのバリデーション: [zod](https://zod.dev/)
 
+## DB設計図
+https://dbdiagram.io/d/6725be59b1b39dd8583abe27
+
 ## アピールポイント
 
 Firebaseなどの、バックエンド開発をあまり必要としないテクノロジーをあえて使用せず、
