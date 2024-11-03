@@ -1,5 +1,5 @@
 import { zValidator } from "@hono/zod-validator";
-import { and, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { z } from "zod";
 import { roomAnniversary } from "../../../drizzle/schema";
@@ -9,6 +9,37 @@ import { getCurrentTimestamp } from "../utils/dateTimeConverter";
 const app = new Hono<{ Bindings: Bindings }>();
 
 export const route = app
+	.get(
+		"/:room_id",
+		zValidator(
+			"param",
+			z.object({
+				room_id: z.string(),
+			}),
+		),
+		async (c) => {
+			const { room_id } = c.req.valid("param");
+
+			try {
+				const group_anniversaries = await c.var.db
+					.select()
+					.from(roomAnniversary)
+					.where(eq(roomAnniversary.roomId, room_id))
+					.orderBy(
+						desc(roomAnniversary.date)
+					);
+
+				return c.json(group_anniversaries);
+
+			} catch (error) {
+				console.error('Database error:', error);
+				return c.json({
+					success: false,
+					error: 'Failed to find group_anniversaries for the groupId'
+				}, 500);
+			}
+		},
+	)
 	.post(
 		"/",
 		zValidator(
@@ -35,7 +66,7 @@ export const route = app
 				console.error('Database error:', error);
 				return c.json({
 					success: false,
-					error: 'Failed to insert a log'
+					error: 'Failed to insert a roomAnniversary'
 				}, 500);
 			}
 		},
@@ -73,7 +104,7 @@ export const route = app
 				console.error('Database error:', error);
 				return c.json({
 					success: false,
-					error: 'Failed to insert a log'
+					error: 'Failed to update an roomAnniversary'
 				}, 500);
 			}
 		},
@@ -108,7 +139,7 @@ export const route = app
 				console.error('Database error:', error);
 				return c.json({
 					success: false,
-					error: 'Failed to insert a log'
+					error: 'Failed to delete an roomAnniversary'
 				}, 500);
 			}
 		},
