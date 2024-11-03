@@ -21,7 +21,7 @@ export const route = app
 		async (c) => {
 			const room_id = c.req.query("room_id");
 			const last_clicked_date = c.req.query("last_clicked_date");
-			const today = getFormattedDate();
+			const tomorrow = getFormattedDate(1); // 明日の日付を取得
 
 			try {
 				if (!room_id) {
@@ -36,7 +36,7 @@ export const route = app
 						.where(
 							and(
 								gt(proverb.date, last_clicked_date ?? ''),
-								lte(proverb.date, today)
+								lte(proverb.date, tomorrow)
 							)
 						)
 						.orderBy(asc(proverb.date));
@@ -50,9 +50,9 @@ export const route = app
 					.select({
 						date: sql<string>`COALESCE(ra.date, p.date)`.as('date'),
 						source: sql<string>`CASE
-                            WHEN ra.date IS NOT NULL THEN 'anniversary'
-                            ELSE 'proverb'
-                        END`.as('source'),
+															WHEN ra.date IS NOT NULL THEN 'anniversary'
+															ELSE 'proverb'
+													END`.as('source'),
 						title: sql<string>`COALESCE(ra.name, p.proverb_title)`.as('title'),
 						message: sql<string>`COALESCE(ra.message, p.proverb_description)`.as('message'),
 					})
@@ -68,7 +68,7 @@ export const route = app
 								and(
 									eq(roomAnniversary.roomId, room_id),
 									gt(roomAnniversary.date, last_clicked_date ?? ''),
-									lte(roomAnniversary.date, today)
+									lte(roomAnniversary.date, tomorrow)
 								)
 							)
 							.as('ra')
@@ -84,7 +84,7 @@ export const route = app
 							.where(
 								and(
 									gt(proverb.date, last_clicked_date ?? ''),
-									lte(proverb.date, today)
+									lte(proverb.date, tomorrow)
 								)
 							)
 							.as('p'),
