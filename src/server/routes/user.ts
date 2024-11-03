@@ -98,6 +98,7 @@ export const route = app
 			try {
 				const latest_user_logs_of_the_room = await c.var.db
 					.select({
+						userId: users.id,
 						username: users.username,
 						createdAt: users.createdAt,
 						sticker: logs.sticker,
