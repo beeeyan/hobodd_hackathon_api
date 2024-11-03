@@ -18,8 +18,6 @@ Database: Cloudflare d1
 
 ORM: [drizzle](https://github.com/drizzle-team/drizzle-orm)
 
-開発用: [tsx](https://github.com/privatenumber/tsx)
-
 Linter&formatter： [biome](https://biomejs.dev/ja/) ・・・今回はVSCodeの拡張機能で済ましてしまってます。
 
 リクエストのバリデーション: [zod](https://zod.dev/)
