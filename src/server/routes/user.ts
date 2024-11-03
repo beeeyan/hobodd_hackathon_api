@@ -1,5 +1,5 @@
 import { zValidator } from "@hono/zod-validator";
-import { asc, desc, eq, sql } from "drizzle-orm";
+import { asc, desc, eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { z } from "zod";
 import { logs, room, users } from "../../../drizzle/schema";
@@ -101,7 +101,7 @@ export const route = app
 					.select({
 						userId: users.id,
 						username: users.username,
-						createdAt: sql`CONVERT_TZ(${logs.clickedAt}, 'SYSTEM', '+00:00')`.as('clickedAt'),
+						createdAt: users.createdAt,
 						sticker: logs.sticker,
 						clickedAt: logs.clickedAt,
 					})
