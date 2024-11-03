@@ -1,5 +1,4 @@
 import { drizzle } from "drizzle-orm/d1";
-// middleware/withDB.ts
 import type { MiddlewareHandler } from "hono";
 
 export type Bindings = {
